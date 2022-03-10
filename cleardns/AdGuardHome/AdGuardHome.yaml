@@ -31,13 +31,11 @@ dns:
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-  - 127.0.0.1:5353
+  - '[::1]:5353'
   upstream_dns_file: ""
   bootstrap_dns:
-  - 9.9.9.10
-  - 149.112.112.10
-  - 2620:fe::10
-  - 2620:fe::fe:10
+  - 8.8.8.8
+  - 223.5.5.5
   all_servers: false
   fastest_addr: false
   fastest_timeout: 1s
@@ -47,16 +45,13 @@ dns:
   - version.bind
   - id.server
   - hostname.bind
-  - wpad.lan
-  - clock.redhat.com
-  - clock.cuhk.edu.hk
   trusted_proxies:
   - 127.0.0.0/8
   - ::1/128
-  cache_size: 268435456
-  cache_ttl_min: 300
+  cache_size: 16777216
+  cache_ttl_min: 60
   cache_ttl_max: 518400
-  cache_optimistic: false
+  cache_optimistic: true
   bogus_nxdomain: []
   aaaa_disabled: false
   enable_dnssec: true
@@ -73,14 +68,18 @@ dns:
   parental_cache_size: 1048576
   cache_time: 30
   rewrites:
-  - domain: mc.scut.343.re
-    answer: iserv.scutbot.cn
-  - domain: dns.343.re
-    answer: 8.210.148.24
-  - domain: nps.dnomd343.top
-    answer: 8.210.148.24
+  - domain: ...
+    answer: ...
+  - domain: ...
+    answer: ...
+  - domain: ...
+    answer: ...
+  - domain: ...
+    answer: ...
   - domain: '*.scut.343.re'
     answer: 192.168.2.34
+  - domain: dns.scut.343.re
+    answer: 192.168.2.3
   blocked_services: []
   upstream_timeout: 10s
   local_domain_name: lan
@@ -88,8 +87,8 @@ dns:
   use_private_ptr_resolvers: true
   local_ptr_upstreams: []
 tls:
-  enabled: false
-  server_name: ""
+  enabled: true
+  server_name: dns.scut.343.re
   force_https: false
   port_https: 443
   port_dns_over_tls: 853
@@ -100,28 +99,27 @@ tls:
   strict_sni_check: false
   certificate_chain: ""
   private_key: ""
-  certificate_path: ""
-  private_key_path: ""
+  certificate_path: /etc/ssl/certs/scut.343.re/fullchain.pem
+  private_key_path: /etc/ssl/certs/scut.343.re/privkey.pem
 filters:
 - enabled: true
   url: https://res.343.re/Share/Adblock-Rules/xinggsf.txt
   name: 乘风规则
-  id: 1637574156
+  id: 1646875485
 - enabled: true
   url: https://adaway.org/hosts.txt
   name: AdAway
-  id: 1637574157
+  id: 1646875486
 - enabled: true
   url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
   name: AdGuard
-  id: 1637574159
+  id: 1646875487
 - enabled: true
   url: https://anti-ad.net/easylist.txt
   name: Anti AD
-  id: 1637597338
+  id: 1646875488
 whitelist_filters: []
-user_rules:
-- '||wpad.lan^'
+user_rules: []
 dhcp:
   enabled: false
   interface_name: ""
