@@ -18,6 +18,9 @@
         "destOverride": [
           "http",
           "tls"
+        ],
+        "domainsExcluded": [
+          "Mijia Cloud"
         ]
       }
     },

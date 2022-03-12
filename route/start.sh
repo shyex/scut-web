@@ -207,18 +207,19 @@ file_put_contents($path . 'config/routing.json', $config);
 EOF
 php /etc/route/rules.php
 rm -f /etc/route/rules.php
-temp=`docker ps -a | grep -o route`
-if [ "$temp" != "" ]; then
-  docker restart -t=0 route > /dev/null
+if [ "$(docker ps -a | grep -o route)" != "" ]; then
+  docker restart route > /dev/null
 else
-  docker run --restart always \
+  docker run -d \
   --name route \
+  --privileged \
+  --restart always \
+  --hostname route \
   --network macvlan \
-  --privileged -d \
-  --volume /etc/route/:/etc/xray/expose/ \
+  --volume /etc/route:/etc/xray/expose \
   --volume /etc/timezone:/etc/timezone:ro \
   --volume /etc/localtime:/etc/localtime:ro \
-  dnomd343/tproxy:latest > /dev/null
+  dnomd343/tproxy:v1.3 > /dev/null
 fi
 sleep 1s
 docker ps -a

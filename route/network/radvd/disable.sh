@@ -1,5 +1,4 @@
-status=`cat config | grep AdvSendAdvert | grep -o on`
-if [ "$status" = "on" ]; then
+if [ "$(cat config | grep AdvSendAdvert | grep -o on)" = "on" ]; then
   sed -i 's/^AdvSendAdvert=.*/AdvSendAdvert=off/;' ./config
-  docker restart -t=0 route
+  docker restart route
 fi
